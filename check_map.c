@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/05/24 11:52:19 by afonso           ###   ########.fr       */
+/*   Updated: 2022/05/24 15:25:52 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ static	int	check_dimensions(char **map, int max_height)
 	int	height;
 	int	width;
 
-	
-
-
+	while (height <= max_height)
+	{
+		height++;
+		if (ft_strlen(map[height]) != ft_strlen(map[height - 1]))
+			return (ft_printf("erro. mapa inválido\n"));
+		width = ft_strlen(map[0]);
+	}
 }
