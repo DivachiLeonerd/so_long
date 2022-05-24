@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:58 by afonso            #+#    #+#             */
-/*   Updated: 2022/05/23 11:55:30 by afonso           ###   ########.fr       */
+/*   Updated: 2022/05/24 11:55:35 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,4 +14,6 @@
 # define SO_LONG_H
 
 # include "mlx.h"
+# include <fcntl.h>
+# include <stdio.h>
 #endif
