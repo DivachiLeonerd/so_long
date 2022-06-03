@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:58 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/01 12:11:55 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/02 11:45:47 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ int		check_map(char *bermap, t_game *game);
 void	load_game(t_game *game);
 int		ft_printf(char *buf, ...);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
+char	*ft_strchr(char *str, int chr);
 #endif
