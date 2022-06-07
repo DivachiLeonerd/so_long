@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 12:33:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/05/17 12:50:36 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:39:03 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+typedef unsigned long long	t_ull;
 char				*get_next_line(int fd);
 char				*ft_substr(char *s, unsigned long long start,
 						unsigned long long len);

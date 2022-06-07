@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 12:30:52 by afonso            #+#    #+#             */
-/*   Updated: 2022/05/17 12:56:45 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:39:15 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_next_line(int fd)
 		bytes_read = read(fd, buf[fd], BUFFER_SIZE);
 	if (bytes_read < 1)
 		return (NULL);
-	newline = (unsigned long long)(ft_memchr(buf[fd], '\n', BUFFER_SIZE) - buf[fd]);
+	newline = (t_ull)(ft_memchr(buf[fd], '\n', BUFFER_SIZE) - buf[fd]);
 	if (ft_memchr(buf[fd], '\n', BUFFER_SIZE) == 0)
 		saved = ft_substr(buf[fd], (unsigned long long)0, ft_strlen(buf[fd]));
 	else

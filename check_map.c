@@ -6,20 +6,20 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/02 17:53:33 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/06 12:03:11 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static	int	lookfor_characters(char *line)
+int	lookfor_characters(char *line)
 {
 	static int	exit;
 	static int	collects;
 	static int	player;
 	int			sum;
 
-	while (*line != '\n' && *line)
+	while (*line)
 	{
 		if (*line == 'E')
 			exit++;
@@ -27,6 +27,7 @@ static	int	lookfor_characters(char *line)
 			collects++;
 		if (*line == 'P')
 			player++;
+		line++;
 	}
 	sum = exit + collects + player;
 	if (!*line)
@@ -39,7 +40,7 @@ static	int	lookfor_characters(char *line)
 	return (0);
 }
 
-static int	find_map_height(char *bermap)
+int	find_map_height(char *bermap)
 {
 	int		height;
 	int		fd;
@@ -50,23 +51,26 @@ static int	find_map_height(char *bermap)
 	if (fd < 1)
 		return (0);
 	saved = get_next_line(fd);
-	while (*saved != '\n' && !(*saved))
+	while ((saved && (saved[ft_strlen(saved) - 1]) == '\n'))
 	{
-		if (*saved)
+		if (ft_strlen(saved) > 0)
+		{
 			free(saved);
-		saved = get_next_line(fd);
+			saved = get_next_line(fd);
+		}
 		height++;
+		ft_printf("Acabou find_map_height com return de %d\n", height);
 	}
-	ft_printf("Acabou find_map_height\n");
 	return (height);
 }
 
-static	int	check_dimensions(t_game *game)
+int	check_dimensions(t_game *game)
 {
 	int	height;
 	int	character_num;
 
 	height = -1;
+	character_num = 0;
 	while (height < game->window_height)
 	{
 		height++;
@@ -87,26 +91,21 @@ static	int	check_dimensions(t_game *game)
 	return (1);
 }
 
-static	void	make_map(t_game *game, int fd, char *bermap)
+void	make_map(t_game *game, int fd, char *bermap)
 {
-	unsigned long long	strlen;
-	int					height;
+	int		fd2;
+	char	*saved;
 
-	height = 0;
-	strlen = 0;
-	game->map = malloc(find_map_height(bermap) * sizeof(char *) + 1);
-	while (height < (game->window_height))
-	{
-		game->map[height] = get_next_line(fd);
-		ft_printf("map[%i]:%s\n", height, game->map[height]);
-		strlen = (t_ull)(ft_strchr(game->map[height],
-					'\n') - game->map[height]);
-		if (!(game->map[height][0]))
-			break ;
-		height++;
-	}
-	game->window_height = height;
-	game->window_width = strlen;
+	game->window_height = find_map_height(bermap);
+	fd2 = open(bermap, O_RDONLY);
+	if (fd2 < 1)
+		return ;
+	saved = get_next_line(fd2);
+	if (!saved)
+		return ;
+	game->window_width = ft_strlen(saved);
+	
+	close (fd2);
 }
 
 int	check_map(char *bermap, t_game *game)

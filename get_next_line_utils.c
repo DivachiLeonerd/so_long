@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:20:04 by afonso            #+#    #+#             */
-/*   Updated: 2022/05/12 16:42:51 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/06 10:32:30 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ unsigned long long	ft_strlen(const char *str)
 	int	counter;
 
 	counter = 0;
+	if (!str)
+		return (0);
 	while (*str)
 	{
 		counter++;

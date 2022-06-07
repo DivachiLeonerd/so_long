@@ -6,14 +6,14 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:38 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/02 17:35:15 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/03 15:40:27 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static	void	free_map(t_game *game);
-static	int		exit_game(t_game *game);
+static void		free_map(t_game *game);
+static int		exit_game(t_game *game);
 
 int	main(int argc, char **argv)
 {
