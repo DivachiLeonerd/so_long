@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:58 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/06 11:20:24 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/07 14:05:53 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "./mlx_linux/mlx.h"
+# include <mlx.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>

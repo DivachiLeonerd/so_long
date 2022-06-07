@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:38 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/03 15:40:27 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/07 14:24:37 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv)
 
 	berfile = argv[1];
 	ft_printf("berfile:%s\n", berfile);
+	game.mlx_ptr = mlx_init();
 	if (!berfile)
 		return (0);
 	if (!check_map(berfile, &game) || argc != 2)
@@ -29,13 +30,9 @@ int	main(int argc, char **argv)
 		free_map(&game);
 		return (0);
 	}
-	game.mlx_ptr = mlx_init();
-	game.window = mlx_new_window(game.mlx_ptr, game.window_width,
-			game.window_height, "ganda jogao");
 	load_game(&game);
 	mlx_key_hook(game.window, exit_game, &game);
 	mlx_loop(game.mlx_ptr);
-	free_map(&game);
 	return (0);
 }
 

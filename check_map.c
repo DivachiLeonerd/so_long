@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/06 12:03:11 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/07 15:51:36 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,20 @@ int	lookfor_characters(char *line)
 
 	while (*line)
 	{
-		if (*line == 'E')
-			exit++;
-		if (*line == 'C')
-			collects++;
-		if (*line == 'P')
-			player++;
+		if (exit < 2 && collects < 2 && player < 2)
+		{
+			if (*line == 'E')
+				exit++;
+			if (*line == 'C')
+				collects++;
+			if (*line == 'P')
+				player++;
+		}
 		line++;
 	}
 	sum = exit + collects + player;
-	if (!*line)
-	{
-		if (sum != 3)
-			return (0);
-		else
-			return (1);
-	}
+	if (!*line && sum == 3)
+		return (1);
 	return (0);
 }
 
@@ -95,7 +93,9 @@ void	make_map(t_game *game, int fd, char *bermap)
 {
 	int		fd2;
 	char	*saved;
+	int		i;
 
+	i = 0;
 	game->window_height = find_map_height(bermap);
 	fd2 = open(bermap, O_RDONLY);
 	if (fd2 < 1)
@@ -104,8 +104,14 @@ void	make_map(t_game *game, int fd, char *bermap)
 	if (!saved)
 		return ;
 	game->window_width = ft_strlen(saved);
-	
+	game->map = malloc(game->window_height * sizeof(char *) + 1);
+	game->map[game->window_height] = 0;
+	while (i < game->window_height)
+		game->map[i++] = get_next_line(fd);
+	game->window = mlx_new_window(game->mlx_ptr, game->window_width * 64,
+			game->window_height * 64, "so_long");
 	close (fd2);
+	return ;
 }
 
 int	check_map(char *bermap, t_game *game)
