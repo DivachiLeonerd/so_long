@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/07 15:51:36 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/07 18:40:30 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,22 @@
 int	lookfor_characters(char *line)
 {
 	static int	exit;
-	static int	collects;
 	static int	player;
 	int			sum;
 
 	while (*line)
 	{
-		if (exit < 2 && collects < 2 && player < 2)
+		if (exit < 2 && player < 2)
 		{
 			if (*line == 'E')
 				exit++;
-			if (*line == 'C')
-				collects++;
 			if (*line == 'P')
 				player++;
 		}
 		line++;
 	}
-	sum = exit + collects + player;
-	if (!*line && sum == 3)
+	sum = exit + player;
+	if (!*line && sum == 2)
 		return (1);
 	return (0);
 }
@@ -62,6 +59,27 @@ int	find_map_height(char *bermap)
 	return (height);
 }
 
+int	check_upper_lower_bounds(t_game game)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (game.map[j])
+	{
+		i = 0;
+		while (game.map[j][i] == '1')
+			i++;
+		if (i != (ft_strlen(game.map[0]) - 2))
+		{
+			ft_printf("formato invalido @check_upper_lower_bounds()\n");
+			return (0);
+		}
+		j++;
+	}
+}
+
 int	check_dimensions(t_game *game)
 {
 	int	height;
@@ -75,7 +93,6 @@ int	check_dimensions(t_game *game)
 		character_num = lookfor_characters(game->map[height]);
 		if (ft_strlen(game->map[height]) != ft_strlen(game->map[height - 1]))
 			return (ft_printf("erro. mapa inválido @check_dimensions()\n"));
-		game->window_width = ft_strlen(game->map[0]);
 		if (height * 64 <= 1080)
 		{
 			if (game->window_width * 64 > 1920)
