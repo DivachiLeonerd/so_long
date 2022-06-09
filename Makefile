@@ -6,14 +6,14 @@
 #    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/10 17:21:03 by atereso-          #+#    #+#              #
-#    Updated: 2022/06/06 11:07:44 by afonso           ###   ########.fr        #
+#    Updated: 2022/06/08 18:57:12 by afonso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 HEADER = get_next_line.h
 LIB = ar -rcs
-SRCS = check_map.c load_game_images.c get_next_line.c get_next_line_utils.c
+SRCS = so_long.c check_map.c load_game_images.c get_next_line.c get_next_line_utils.c
 OBJS = ${SRCS:.c=.o}
 OBJS_T = so_long_tester.o
 BONUS =

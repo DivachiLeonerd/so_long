@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:58 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/07 14:05:53 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/08 18:54:39 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include <mlx.h>
+# include "./mlx_linux/mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -51,5 +51,6 @@ char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strchr(char *str, int chr);
 int		lookfor_characters(char *line);
 int		check_dimensions(t_game *game);
-void	make_map(t_game *game, int fd, char *bermap);
+void	make_map(t_game *game, char *bermap);
+void	free_map(t_game *game);
 #endif

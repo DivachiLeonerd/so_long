@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:38 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/07 14:24:37 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/08 18:59:07 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void		free_map(t_game *game);
+void		free_map(t_game *game);
 static int		exit_game(t_game *game);
 
-int	main(int argc, char **argv)
+int	so_long(int argc, char **argv)
 {
 	t_game	game;
 	char	*berfile;
@@ -36,13 +36,16 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-static	void	free_map(t_game *game)
+void	free_map(t_game *game)
 {
 	int	height;
 
 	height = 0;
 	while (height < game->window_height)
-		free(game->map[height++]);
+	{
+		free(game->map[height]);
+		height++;
+	}
 	free(game->map);
 	return ;
 }

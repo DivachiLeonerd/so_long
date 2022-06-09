@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/07 18:40:30 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/08 18:52:59 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ int	lookfor_characters(char *line)
 	static int	player;
 	int			sum;
 
+	sum = 0;
 	while (*line)
 	{
-		if (exit < 2 && player < 2)
+		if (exit < 1 || player < 1)
 		{
 			if (*line == 'E')
 				exit++;
@@ -29,8 +30,9 @@ int	lookfor_characters(char *line)
 		}
 		line++;
 	}
+	ft_printf("%d || %d\n", exit, player);
 	sum = exit + player;
-	if (!*line && sum == 2)
+	if ((!*line) && (sum == 2))
 		return (1);
 	return (0);
 }
@@ -71,27 +73,30 @@ int	check_upper_lower_bounds(t_game game)
 		i = 0;
 		while (game.map[j][i] == '1')
 			i++;
-		if (i != (ft_strlen(game.map[0]) - 2))
+		if ((char *)&i != &game.map[0][(ft_strlen(game.map[0]) - 2)])
 		{
 			ft_printf("formato invalido @check_upper_lower_bounds()\n");
 			return (0);
 		}
 		j++;
 	}
+	return (1);
 }
 
 int	check_dimensions(t_game *game)
 {
-	int	height;
-	int	character_num;
+	int		height;
+	int		character_num;
+	t_ull	strlen;
 
 	height = -1;
 	character_num = 0;
-	while (height < game->window_height)
+
+	while (++height < game->window_height)
 	{
-		height++;
-		character_num = lookfor_characters(game->map[height]);
-		if (ft_strlen(game->map[height]) != ft_strlen(game->map[height - 1]))
+		ft_printf("character_num:%d\n",character_num = lookfor_characters(game->map[height]));
+		printf("%llu\n", strlen = ft_strlen(game->map[height]));
+		if (ft_strlen(game->map[height]) != strlen)
 			return (ft_printf("erro. mapa inválido @check_dimensions()\n"));
 		if (height * 64 <= 1080)
 		{
@@ -106,7 +111,7 @@ int	check_dimensions(t_game *game)
 	return (1);
 }
 
-void	make_map(t_game *game, int fd, char *bermap)
+void	make_map(t_game *game, char *bermap)
 {
 	int		fd2;
 	char	*saved;
@@ -121,13 +126,23 @@ void	make_map(t_game *game, int fd, char *bermap)
 	if (!saved)
 		return ;
 	game->window_width = ft_strlen(saved);
+	ft_printf("strlen @make_map:%d\n", game->window_width);
 	game->map = malloc(game->window_height * sizeof(char *) + 1);
-	game->map[game->window_height] = 0;
-	while (i < game->window_height)
-		game->map[i++] = get_next_line(fd);
-	game->window = mlx_new_window(game->mlx_ptr, game->window_width * 64,
-			game->window_height * 64, "so_long");
+	game->map[game->window_height] = NULL;
+	game->map[0] = saved;
+	ft_printf("map @make_map():\n");
+	i = 0;
+	printf("i: %d || %s\n", i, game->map[0]);
+	while (++i < game->window_height)
+	{
+		game->map[i] = get_next_line(fd2);
+		ft_printf("i: %d || %s\n", i, game->map[i]);
+	}
+	ft_printf("window_w:%d || window_h:%d\n", game->window_width * 64, game->window_height * 64);
+	game->window = mlx_new_window(game->mlx_ptr, (game->window_width * 64),
+			(game->window_height * 64), "so_long");
 	close (fd2);
+	ft_printf("saindo do make_map()\n");
 	return ;
 }
 
@@ -145,7 +160,7 @@ int	check_map(char *bermap, t_game *game)
 	fd = open(bermap, O_RDONLY);
 	if (fd < 0)
 		return (0);
-	make_map(game, fd, bermap);
+	make_map(game, bermap);
 	if (!check_dimensions(game))
 		return (0);
 	return (1);
