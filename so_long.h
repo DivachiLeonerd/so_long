@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:58 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/12 16:53:14 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/13 14:25:03 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ int		make_map(t_game *game, char *bermap);
 void	free_map(t_game *game, int i);
 int		unload_assets(t_game *game, t_image *images);
 int		event_handler(int keycode, t_game *game, t_image *images);
-int		close_x_window(t_game *game);
+int		close_x_window(t_game *game, t_image *images);
 #endif

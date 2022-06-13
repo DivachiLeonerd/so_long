@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 10:30:59 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/12 16:52:44 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/13 14:24:59 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ int	unload_assets(t_game *game, t_image *images)
 	exit(0);
 }
 
-int	close_x_window(t_game *game)
+int	close_x_window(t_game *game, t_image *images)
 {
 	mlx_destroy_window(game->mlx_ptr, game->window);
+	unload_assets(game, images);
 	exit(0);
 }
 
