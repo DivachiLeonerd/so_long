@@ -6,60 +6,64 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:38 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/08 18:59:07 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/12 16:49:01 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void		free_map(t_game *game);
-static int		exit_game(t_game *game);
+void		free_map(t_game *game, int max_index);
 
-int	so_long(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_game	game;
 	char	*berfile;
+	t_image	images[5];
 
 	berfile = argv[1];
 	ft_printf("berfile:%s\n", berfile);
+	if (!berfile || argc != 2)
+		return (0);
 	game.mlx_ptr = mlx_init();
-	if (!berfile)
+	game.window = mlx_new_window(game.mlx_ptr, 1920, 1080, "teste");
+	if (!check_map(berfile, &game))
 		return (0);
-	if (!check_map(berfile, &game) || argc != 2)
-	{
-		free_map(&game);
-		return (0);
-	}
-	load_game(&game);
-	mlx_key_hook(game.window, exit_game, &game);
+	images[2].image = mlx_xpm_file_to_image(game.mlx_ptr,
+			"player.xpm", &(game.image_x), &(game.image_y));
+	images[0].image = mlx_xpm_file_to_image(game.mlx_ptr,
+			"floor.xpm", &(game.image_x), &(game.image_y));
+	// game.wall_image = mlx_xpm_file_to_image(game.mlx_ptr,
+	// 		"wall.xpm", &(game.image_x), &(game.image_y));
+	// game.collectable_image = mlx_xpm_file_to_image(game.mlx_ptr,
+	// 		"collectable.xpm", &(game.image_x), &(game.image_y));
+	// mlx_put_image_to_window(game.mlx_ptr, game.window,
+	// 	game.wall_image, 0, 0);
+	mlx_put_image_to_window(game.mlx_ptr, game.window,
+		images[0].image, 0, 0);
+	mlx_put_image_to_window(game.mlx_ptr, game.window,
+		images[2].image, 16, 16);
+	// mlx_put_image_to_window(game.mlx_ptr, game.window,
+	// 	game.collectable_image, 0, 64);
+	// mlx_put_image_to_window(game.mlx_ptr, game.window,
+	// 	game.exit_image, 64, 64);
+	// load_game(images, &game);
+	mlx_key_hook(game.window, event_handler, &game);
+	mlx_hook(game.window, 17, 1L << 2, close_x_window, &game);
+	mlx_mouse_hook(game.window, event_handler, &game);
 	mlx_loop(game.mlx_ptr);
 	return (0);
 }
 
-void	free_map(t_game *game)
+void	free_map(t_game *game, int max_index)
 {
 	int	height;
 
 	height = 0;
-	while (height < game->window_height)
+	while (height <= max_index)
 	{
 		free(game->map[height]);
 		height++;
 	}
-	free(game->map);
 	return ;
 }
 
-static	int	exit_game(t_game *game)
-{
-	free_map(game);
-	mlx_destroy_image(game->mlx_ptr, game->player_image);
-	mlx_destroy_image(game->mlx_ptr, game->floor_image);
-	mlx_destroy_image(game->mlx_ptr, game->wall_image);
-	mlx_destroy_image(game->mlx_ptr, game->collectable_image);
-	mlx_destroy_image(game->mlx_ptr, game->exit_image);
-	mlx_destroy_window(game->mlx_ptr, game->window);
-	mlx_destroy_display(game->mlx_ptr);
-	perror("free_map");
-	exit(0);
-}

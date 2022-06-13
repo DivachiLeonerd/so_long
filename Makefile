@@ -6,14 +6,14 @@
 #    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/10 17:21:03 by atereso-          #+#    #+#              #
-#    Updated: 2022/06/08 18:57:12 by afonso           ###   ########.fr        #
+#    Updated: 2022/06/11 11:52:19 by afonso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 HEADER = get_next_line.h
 LIB = ar -rcs
-SRCS = so_long.c check_map.c load_game_images.c get_next_line.c get_next_line_utils.c
+SRCS = so_long.c check_map.c load_game_images.c get_next_line.c get_next_line_utils.c event_handler.c
 OBJS = ${SRCS:.c=.o}
 OBJS_T = so_long_tester.o
 BONUS =
@@ -23,7 +23,7 @@ CFLAGS :=-Wall -Wextra -Werror -DBUFFER_SIZE=42 -fsanitize=address
 RM = rm -f
 
 $(NAME):${OBJS}
-	$(CC) ${CFLAGS} so_long.o $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -I./ -L. -lft -o $(NAME)
+	$(CC) ${CFLAGS} $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -I./ -L. -lft -o $(NAME)
 
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror -DBUFFER_SIZE=42 -I/usr/include -Imlx_linux -O3 -c $< -o $@

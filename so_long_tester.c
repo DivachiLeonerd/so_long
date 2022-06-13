@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 12:19:04 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/08 19:00:15 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/11 11:23:45 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	main(void)
 	make_map(&game, "./mapa1.ber");
 	ft_printf("\n*********Testing Check_dimensions()*********\n");
 	ft_printf("mapa1 tem boas dimensoes || Check_dimensions diz:%d\n", check_dimensions(&game));
-	free_map(&game);
+	free_map(&game, );
 	mlx_destroy_window(game.mlx_ptr, game.window);
-	free(game.mlx_ptr);
 }

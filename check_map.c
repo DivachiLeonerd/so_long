@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/08 18:52:59 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/11 21:06:52 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,10 @@ int	check_dimensions(t_game *game)
 
 	height = -1;
 	character_num = 0;
-
 	while (++height < game->window_height)
 	{
-		ft_printf("character_num:%d\n",character_num = lookfor_characters(game->map[height]));
-		printf("%llu\n", strlen = ft_strlen(game->map[height]));
+		character_num = lookfor_characters(game->map[height]);
+		strlen = ft_strlen(game->map[height]);
 		if (ft_strlen(game->map[height]) != strlen)
 			return (ft_printf("erro. mapa inválido @check_dimensions()\n"));
 		if (height * 64 <= 1080)
@@ -111,7 +110,7 @@ int	check_dimensions(t_game *game)
 	return (1);
 }
 
-void	make_map(t_game *game, char *bermap)
+int	make_map(t_game *game, char *bermap)
 {
 	int		fd2;
 	char	*saved;
@@ -121,35 +120,38 @@ void	make_map(t_game *game, char *bermap)
 	game->window_height = find_map_height(bermap);
 	fd2 = open(bermap, O_RDONLY);
 	if (fd2 < 1)
-		return ;
+		return (0);
 	saved = get_next_line(fd2);
 	if (!saved)
-		return ;
+		return (0);
 	game->window_width = ft_strlen(saved);
 	ft_printf("strlen @make_map:%d\n", game->window_width);
 	game->map = malloc(game->window_height * sizeof(char *) + 1);
-	game->map[game->window_height] = NULL;
+	if (!game->map)
+		return (0);
+	game->map[game->window_height] = 0;
 	game->map[0] = saved;
 	ft_printf("map @make_map():\n");
 	i = 0;
-	printf("i: %d || %s\n", i, game->map[0]);
+	ft_printf("linha:%s\n", game->map[i]);
 	while (++i < game->window_height)
 	{
 		game->map[i] = get_next_line(fd2);
-		ft_printf("i: %d || %s\n", i, game->map[i]);
+		printf("linha:%s\n", game->map[i]);
+		if (game->map[i] == 0)
+			return (i);
 	}
 	ft_printf("window_w:%d || window_h:%d\n", game->window_width * 64, game->window_height * 64);
-	game->window = mlx_new_window(game->mlx_ptr, (game->window_width * 64),
-			(game->window_height * 64), "so_long");
 	close (fd2);
 	ft_printf("saindo do make_map()\n");
-	return ;
+	return (i);
 }
 
 int	check_map(char *bermap, t_game *game)
 {
 	t_ull				is_ber;
 	int					fd;
+	int 				i;
 
 	ft_printf("Inicio de check_map\n");
 	if (!bermap)
@@ -160,7 +162,9 @@ int	check_map(char *bermap, t_game *game)
 	fd = open(bermap, O_RDONLY);
 	if (fd < 0)
 		return (0);
-	make_map(game, bermap);
+	i = make_map(game, bermap);
+	if (i != game->window_height)
+		free_map(game, i);
 	if (!check_dimensions(game))
 		return (0);
 	return (1);

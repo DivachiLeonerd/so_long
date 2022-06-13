@@ -6,57 +6,59 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:11:53 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/01 12:17:59 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/12 16:48:47 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	load_images(t_game *game)
+static void	load_images(t_image *images, t_game *game)
 {
-	game->player_image = mlx_xpm_file_to_image(game->mlx_ptr,
-			"player.xpm", &(game->image_x), &(game->image_y));
-	game->floor_image = mlx_xpm_file_to_image(game->mlx_ptr,
-			"floor.xpm", &(game->image_x), &(game->image_y));
-	game->wall_image = mlx_xpm_file_to_image(game->mlx_ptr,
-			"wall.xpm", &(game->image_x), &(game->image_y));
-	game->collectable_image = mlx_xpm_file_to_image(game->mlx_ptr,
-			"collectible.xpm", &(game->image_x), &(game->image_y));
-	game->policeman_image = mlx_xpm_file_to_image(game->mlx_ptr,
-			"policeman.xpm", &(game->image_x), &(game->image_y));
+	images[0].image = mlx_xpm_file_to_image(game->mlx_ptr,
+			"floor.xpm", &(images[0].x), &(images[0].y));
+	images[1].image = mlx_xpm_file_to_image(game->mlx_ptr,
+			"wall.xpm", &(images[1].x), &(images[1].y));
+	images[2].image = mlx_xpm_file_to_image(game->mlx_ptr,
+			"player.xpm", &(images[2].x), &(images[2].y));
+	images[3].image = mlx_xpm_file_to_image(game->mlx_ptr,
+			"collectable.xpm", &(images[3].x), &(images[3].y));
+	images[4].image = mlx_xpm_file_to_image(game->mlx_ptr,
+			"exit.xpm", &(images[4].x), &(images[4].y));
 }
 
-static void	put_images(t_game *game, int line, int column)
+static void	put_images(t_image *images, t_game *game, int line, int column)
 {
-	if (game->map[line][column] == '1')
-		mlx_put_image_to_window(game->mlx_ptr, game->window,
-			game->wall_image, (column * 64) + 64, (line * 64) + 64);
 	if (game->map[line][column] == '0')
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
-			game->wall_image, (column * 64) + 64, (line * 64) + 64);
+			images[0].image, (column * images[0].x), (line * images[0].y));
+	if (game->map[line][column] == '1')
+		mlx_put_image_to_window(game->mlx_ptr, game->window,
+			images[1].image, (column * images[1].x), (line * images[1].y));
 	if (game->map[line][column] == 'P')
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
-			game->wall_image, (column * 64) + 64, (line * 64) + 64);
+			images[2].image, (column * images[2].x + 16), (line * images[2].y + 16));
 	if (game->map[line][column] == 'C')
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
-			game->wall_image, (column * 64) + 64, (line * 64) + 64);
+			images[3].image, (column * images[3].x), (line * images[3].y));
 	if (game->map[line][column] == 'E')
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
-			game->wall_image, (column * 64) + 64, (line * 64) + 64);
+			images[4].image, (column * images[4].x), (line * images[4].y));
 }
 
-void	load_game(t_game *game)
+void	load_game(t_image *images, t_game *game)
 {
 	int	line;
 	int	column;
 
 	line = 0;
-	load_images(game);
+	load_images(images, game);
+	printf("Entramos em load_game()\n");
+	printf("game->window_width:%d\n", game->window_width);
 	while (game->map[line][game->window_width] == '\n')
 	{
 		column = 0;
 		while (game->map[line][column] != '\n')
-			put_images(game, line, column++);
+			put_images(images, game, line, column++);
 		line++;
 	}
 	return ;
