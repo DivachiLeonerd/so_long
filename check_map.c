@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/11 21:06:52 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/13 16:50:49 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	check_dimensions(t_game *game)
 	}
 	if (!character_num)
 		return (0);
+	make_window(game);
 	return (1);
 }
 
@@ -151,7 +152,7 @@ int	check_map(char *bermap, t_game *game)
 {
 	t_ull				is_ber;
 	int					fd;
-	int 				i;
+	int					i;
 
 	ft_printf("Inicio de check_map\n");
 	if (!bermap)

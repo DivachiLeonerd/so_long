@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:38 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/13 14:17:27 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/14 12:30:17 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int argc, char **argv)
 	if (!berfile || argc != 2)
 		return (0);
 	game.mlx_ptr = mlx_init();
-	game.window = mlx_new_window(game.mlx_ptr, 1920, 1080, "teste");
 	if (!check_map(berfile, &game))
 		return (0);
 	// images[2].image = mlx_xpm_file_to_image(game.mlx_ptr,

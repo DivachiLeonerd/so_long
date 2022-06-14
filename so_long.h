@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:58 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/13 14:25:03 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/14 12:50:13 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef struct game
 	void	*window;
 	int		window_width;
 	int		window_height;
-	int		image_y;
-	int		image_x;
+	int		player_y;
+	int		player_x;
 	char	**map;
 }t_game;
 
@@ -51,4 +51,6 @@ void	free_map(t_game *game, int i);
 int		unload_assets(t_game *game, t_image *images);
 int		event_handler(int keycode, t_game *game, t_image *images);
 int		close_x_window(t_game *game, t_image *images);
+void	make_window(t_game *game);
+void	player_move(t_game *game, int keycode);
 #endif

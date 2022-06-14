@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:11:53 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/12 16:48:47 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/14 09:27:29 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,33 +32,43 @@ static void	put_images(t_image *images, t_game *game, int line, int column)
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			images[0].image, (column * images[0].x), (line * images[0].y));
 	if (game->map[line][column] == '1')
+	{
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			images[1].image, (column * images[1].x), (line * images[1].y));
+	}
+
 	if (game->map[line][column] == 'P')
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
-			images[2].image, (column * images[2].x + 16), (line * images[2].y + 16));
+			images[2].image, (column * images[2].x), (line * images[2].y));
 	if (game->map[line][column] == 'C')
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			images[3].image, (column * images[3].x), (line * images[3].y));
 	if (game->map[line][column] == 'E')
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			images[4].image, (column * images[4].x), (line * images[4].y));
+	return ;
 }
 
 void	load_game(t_image *images, t_game *game)
 {
-	int	line;
-	int	column;
+	int			line;
+	int			column;
 
 	line = 0;
 	load_images(images, game);
-	printf("Entramos em load_game()\n");
-	printf("game->window_width:%d\n", game->window_width);
-	while (game->map[line][game->window_width] == '\n')
+	while (game->map[line] != 0)
 	{
 		column = 0;
+		printf("line:%d\n", line);
 		while (game->map[line][column] != '\n')
+		{
 			put_images(images, game, line, column++);
+			if (game->map[line][column] == 'P')
+			{
+				game->player_x = line;
+				game->player_y = column;
+			}
+		}
 		line++;
 	}
 	return ;
