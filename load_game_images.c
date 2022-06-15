@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_game_images.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:11:53 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/14 17:33:32 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/15 19:33:41 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void	put_images(t_image *images, t_game *game, int line, int column)
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			images[1].image, (column * images[1].x), (line * images[1].y));
 	}
-
 	if (game->map[line][column] == 'P')
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			images[2].image, (column * images[2].x), (line * images[2].y));
@@ -71,5 +70,6 @@ void	load_game(t_image *images, t_game *game)
 		}
 		line++;
 	}
+	ft_printf("Saindo do load_game()\n");
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/14 18:15:37 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/15 19:31:48 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,22 @@ int	lookfor_characters(char *line)
 {
 	static int	exit;
 	static int	player;
+	static int	collectable;
 	int			sum;
 
 	sum = 0;
 	while (*line)
 	{
-		if (exit < 1 || player < 1)
-		{
-			if (*line == 'E')
-				exit++;
-			if (*line == 'P')
-				player++;
-		}
+		if (*line == 'E')
+			exit++;
+		if (*line == 'P')
+			player++;
+		if (*line == 'C')
+			collectable++;
 		line++;
 	}
-	ft_printf("%d || %d\n", exit, player);
-	sum = exit + player;
-	if ((!*line) && (sum == 2))
-		return (1);
+	if (exit == 1 && player == 1 && collectable >= 1)
+		return (collectable);
 	return (0);
 }
 
@@ -108,6 +106,7 @@ int	check_dimensions(t_game *game)
 	if (!character_num)
 		return (0);
 	make_window(game);
+	game->collect_num = character_num;
 	return (1);
 }
 
@@ -166,6 +165,7 @@ int	check_map(char *bermap, t_game *game)
 	i = make_map(game, bermap);
 	if (i != game->window_height)
 		free_map(game, i);
+	ft_printf("Antes do checkdimensions()\n");
 	if (!check_dimensions(game))
 		return (0);
 	return (1);
