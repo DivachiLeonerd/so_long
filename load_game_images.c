@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:11:53 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/14 09:27:29 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/14 17:33:32 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	load_game(t_image *images, t_game *game)
 			put_images(images, game, line, column++);
 			if (game->map[line][column] == 'P')
 			{
-				game->player_x = line;
-				game->player_y = column;
+				game->player_x = column;
+				game->player_y = line;
 			}
 		}
 		line++;

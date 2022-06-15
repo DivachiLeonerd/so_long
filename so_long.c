@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:38 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/14 12:30:17 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/14 17:20:47 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	main(int argc, char **argv)
 	load_game(images, &game);
 	mlx_key_hook(game.window, event_handler, &game);
 	mlx_hook(game.window, 17, 1L << 2, close_x_window, &game);
-	mlx_mouse_hook(game.window, event_handler, &game);
 	mlx_loop(game.mlx_ptr);
 	return (0);
 }

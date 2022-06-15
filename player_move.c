@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:16:41 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/14 12:50:24 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/14 19:04:01 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,58 +16,54 @@ int	can_player_move(t_game *game, int keycode);
 
 void	player_move(t_game *game, int keycode)
 {
-	if (keycode == 119 && can_player_move(game, keycode))
-	{
-		game->map[game->player_y][game->player_x] = '0';
-		game->player_y++;
-		game->map[game->player_y][game->player_x] = 'P';
-	}
-	if (keycode == 97 && can_player_move(game, keycode))
-	{
-		game->map[game->player_y][game->player_x] = '0';
-		game->player_x--;
-		game->map[game->player_y][game->player_x] = 'P';
-	}
-	if (keycode == 115 && can_player_move(game, keycode))
+	if (keycode == 119)
 	{
 		game->map[game->player_y][game->player_x] = '0';
 		game->player_y--;
 		game->map[game->player_y][game->player_x] = 'P';
 	}
-	if (keycode == 100 && can_player_move(game, keycode))
+	if (keycode == 97)
+	{
+		game->map[game->player_y][game->player_x] = '0';
+		game->player_x--;
+		game->map[game->player_y][game->player_x] = 'P';
+	}
+	if (keycode == 115)
+	{
+		game->map[game->player_y][game->player_x] = '0';
+		game->player_y++;
+		game->map[game->player_y][game->player_x] = 'P';
+	}
+	if (keycode == 100)
 	{
 		game->map[game->player_y][game->player_x] = '0';
 		game->player_x++;
 		game->map[game->player_y][game->player_x] = 'P';
 	}
-	return (ft_printf("Player cannot move: invalid move\n"));
+	return ;
 }
 
 int	can_player_move(t_game *game, int keycode)
 {
 	if (keycode == 119)
-	{
-		if (game->map[game->player_y + 1][game->player_x] != '1')
+		if (game->map[game->player_y - 1][game->player_x] != '1')
 			return (1);
-		return (0);
-	}
 	if (keycode == 97)
 	{
 		if (game->map[game->player_y][game->player_x - 1] != '1')
+		{
 			return (1);
-		return (0);
+		}
 	}
 	if (keycode == 115)
 	{
-		if (game->map[game->player_y - 1][game->player_x] != '1')
+		if (game->map[game->player_y + 1][game->player_x] != '1')
 			return (1);
-		return (0);
 	}
 	if (keycode == 100)
 	{
 		if (game->map[game->player_y][game->player_x + 1] != '1')
 			return (1);
-		return (0);
 	}
 	return (0);
 }
