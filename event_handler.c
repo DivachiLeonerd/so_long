@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 10:30:59 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/15 19:47:20 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/16 19:03:53 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,20 @@ int	event_handler(int keycode, t_game *game)
 
 	if (valid_key(keycode))
 	{
-		ft_printf("Passou valid\n");
-		if (can_player_move(game, keycode))
+		if (can_player_move(game, keycode) > -1)
 		{
-			ft_printf("Passou canplayermove\n");
-			if (game->map[game->player_y][game->player_x] != 'E')
+			if (game->collect_num == 0)
+				mlx_put_image_to_window(game->mlx_ptr,
+					game->window, game->images[4].image, game->images[4].x * 64,
+					game->images[4].y * 64);
+			else if (game->map[game->player_y][game->player_x] != 'E')
 			{
-				printf("%d :: %d\n",game->player_x, game->player_y);
 				mlx_put_image_to_window(game->mlx_ptr, game->window,
 					game->images[0].image, game->player_x * 64,
 					game->player_y * 64);
 			}
-			else
-				mlx_put_image_to_window(game->mlx_ptr,
-					game->window, game->images[4].image, game->player_x * 64,
-					game->player_y * 64);
-			ft_printf("ola\n");
 			player_move(game, keycode);
 			ft_printf("%d\n", ++counter);
-			mlx_put_image_to_window(game->mlx_ptr, game->window,
-				game->images[2].image, game->player_x * 64,
-				game->player_y * 64);
 		}
 	}
 	if (keycode == 53)

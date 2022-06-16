@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:38 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/15 20:16:15 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/16 15:53:16 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv)
 	if (!check_map(berfile, &game))
 		return (0);
 	load_game(game.images, &game);
+	mlx_string_put(game.mlx_ptr, game.window, 0, 0, 4451500, "Moves:");
 	mlx_key_hook(game.window, event_handler, &game);
 	mlx_hook(game.window, 17, 1L << 2, close_x_window, &game);
 	mlx_loop(game.mlx_ptr);

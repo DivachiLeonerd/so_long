@@ -6,96 +6,97 @@
 /*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:16:41 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/15 20:38:19 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:42:59 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 int	can_player_move(t_game *game, int keycode);
+int	win_game(t_game *game);
 
 void	player_move(t_game *game, int keycode)
 {
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
 	if (keycode == 13)
-	{
-		if (game->map[game->player_y][game->player_x] != 'E')
-			game->map[game->player_y][game->player_x] = '0';
-		game->player_y--;
-	}
+		mlx_put_image_to_window(game->mlx_ptr, game->window,
+			game->images[7].image, game->player_x * 64, game->player_y * 64);
 	if (keycode == 0)
-	{
-		if (game->map[game->player_y][game->player_x] != 'E')
-			game->map[game->player_y][game->player_x] = '0';
-		game->player_x--;
-	}
+		mlx_put_image_to_window(game->mlx_ptr, game->window,
+			game->images[6].image, game->player_x * 64, game->player_y * 64);
 	if (keycode == 1)
-	{
-		if (game->map[game->player_y][game->player_x] != 'E')
-			game->map[game->player_y][game->player_x] = '0';
-		game->player_y++;
-	}
+		mlx_put_image_to_window(game->mlx_ptr, game->window,
+			game->images[2].image, game->player_x * 64, game->player_y * 64);
 	if (keycode == 2)
-	{
-		if (game->map[game->player_y][game->player_x] != 'E')
-			game->map[game->player_y][game->player_x] = '0';
-		game->player_x++;
-	}
+		mlx_put_image_to_window(game->mlx_ptr, game->window,
+			game->images[2].image, game->player_x * 64, game->player_y * 64);
 	if (game->map[game->player_y][game->player_x] == 'C')
 		game->collect_num--;
 	if (game->map[game->player_y][game->player_x] == 'E')
 		if (!(game->collect_num))
-			close_x_window(game);
+			win_game(game);
+	x = -(keycode == 2) + (keycode == 0);
+	y = (keycode == 13) + -(keycode == 1);
+	mlx_put_image_to_window(game->mlx_ptr, game->window,
+		game->images[0].image, (game->player_x + x) * 64,
+		(game->player_y + y) * 64);
 	return ;
 }
 
-// void	print_player_move(t_game *game, int x, int y)
-// {
-// 	if (game->map[y][x] == 'E')
-// 	{
-// 		mlx_put_image_to_window(game->mlx_ptr, game->window, \
-// 		game->images[4].image, x * 64, y * 64);
-// 	}
-// 	else
-// 		mlx_put_image_to_window(game->mlx_ptr, game->window, \
-// 	game->images[0].image, x * 64, y * 64);
-// 	mlx_put_image_to_window(game->mlx_ptr, game->window, \
-// 		game->images[2].image, x * 64, y * 64);
-// 	game->player_x = x;
-// 	game->player_y = y;
-// }
-
 int	can_player_move(t_game *game, int keycode)
 {
-	// int	x;
-	// int	y;
-
-	// (void) game;
-	// x = game->player_x -(keycode == 0) + (keycode == 2);
-	// y = game->player_y -(keycode == 13) + (keycode == 1);
-	// if (x < 0 || x >= game->window_width)
-	// 	x = game->player_x;
-	// if (y < 0 || y >= game->window_height)
-	// 	y = game->player_y;
-	// if (game->map[y][x] == '1')
-	// {
-	// 	x = game->player_x;
-	// 	y = game->player_y;
-	// }
-	// printf("key: %i s: %s\n", keycode, game->map[y]);
-	// print_player_move(game, x, y);
 	if (keycode == 13)
+	{
 		if (game->map[game->player_y - 1][game->player_x] != '1')
-			return (1);
+			game->player_y--;
+		return (13);
+	}
 	if (keycode == 0)
 	{
 		if (game->map[game->player_y][game->player_x - 1] != '1')
-			return (1);
+			game->player_x--;
+		return (0);
 	}
 	if (keycode == 1)
+	{
 		if (game->map[game->player_y + 1][game->player_x] != '1')
-			return (1);
+			game->player_y++;
+		return (1);
+	}
 	if (keycode == 2)
+	{
 		if (game->map[game->player_y][game->player_x + 1] != '1')
-			return (1);
-	return (0);
+			game->player_x++;
+		return (2);
+	}
+	return (-1);
+}
+
+int	win_game(t_game *game)
+{
+
+	ft_printf("Acertou miseravel\n");
+	return (win_animation(game));
+}
+
+int	win_animation(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < 3)
+	{
+		ft_printf("primeira imagem\n");
+		mlx_put_image_to_window(game->mlx_ptr, game->window, game->images[2].image, game->player_x * 64, game->player_y * 64);
+		sleep(1);
+		ft_printf("segunda imagem\n");
+		mlx_put_image_to_window(game->mlx_ptr, game->window, game->images[5].image, game->player_x * 64, game->player_y * 64);
+		sleep(1);
+		i++;
+	}
+	return (close_x_window(game));
 }

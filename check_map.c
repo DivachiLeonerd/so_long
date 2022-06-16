@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/15 19:31:48 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:53:02 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,25 +125,19 @@ int	make_map(t_game *game, char *bermap)
 	if (!saved)
 		return (0);
 	game->window_width = ft_strlen(saved);
-	ft_printf("strlen @make_map:%d\n", game->window_width);
 	game->map = malloc(game->window_height * sizeof(char *) + 1);
 	if (!game->map)
 		return (0);
 	game->map[game->window_height] = 0;
 	game->map[0] = saved;
-	ft_printf("map @make_map():\n");
 	i = 0;
-	ft_printf("linha:%s\n", game->map[i]);
 	while (++i < game->window_height)
 	{
 		game->map[i] = get_next_line(fd2);
-		printf("linha:%s\n", game->map[i]);
 		if (game->map[i] == 0)
 			return (i);
 	}
-	ft_printf("window_w:%d || window_h:%d\n", game->window_width * 64, game->window_height * 64);
 	close (fd2);
-	ft_printf("saindo do make_map()\n");
 	return (i);
 }
 
@@ -165,7 +159,6 @@ int	check_map(char *bermap, t_game *game)
 	i = make_map(game, bermap);
 	if (i != game->window_height)
 		free_map(game, i);
-	ft_printf("Antes do checkdimensions()\n");
 	if (!check_dimensions(game))
 		return (0);
 	return (1);
