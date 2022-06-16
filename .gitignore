@@ -2,3 +2,4 @@
 *.o
 mlx_linux/
 *.json
+.DS_Store
