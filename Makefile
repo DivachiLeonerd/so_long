@@ -6,7 +6,7 @@
 #    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/10 17:21:03 by atereso-          #+#    #+#              #
-#    Updated: 2022/06/17 18:34:08 by afonso           ###   ########.fr        #
+#    Updated: 2022/06/17 18:59:49 by afonso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ all:linux
 $(NAME): fetch ${OBJS}
 	$(CC) $(OBJS) -L./ -lftprintf -I./ -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-linux: fetchl $(OBJS) libprintf.a
+linux: $(OBJS) libftprintf.a
 	$(CC) $(OBJS) -L./ -lftprintf -I./  -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o linux
 
 %.o: %.c
@@ -39,7 +39,7 @@ fetch:
 	${MAKE} -C ../printf42 clean
 	${MAKE} -C ../printf42/libft clean
 
-fetchl:
+libftprintf.a:
 	${MAKE} -C ../printf42
 	mv ../printf42/libftprintf.a /home/afonso/Documents/GitHub/so_long_home
 	${MAKE} -C ../printf42 clean
@@ -47,13 +47,13 @@ fetchl:
 
 clean:
 	${RM} ${OBJS}
-	${RM} tester
-	${RM} so_long
-	${RM} linux
 
 fclean: clean
 	${RM} ${NAME}
+	${RM} libftprintf.a
+	${RM} linux
+	${RM} tester
 
 re: fclean all
 
-.PHONY: all re clean fclean bonus fetch linux fetchl
+.PHONY: all re clean fclean bonus fetch fetchl
