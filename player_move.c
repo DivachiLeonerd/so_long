@@ -6,13 +6,14 @@
 /*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:16:41 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/17 12:55:38 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/17 13:33:46 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 int	can_player_move(t_game *game, int keycode);
+int	win_game(t_game *game);
 
 void	player_move(t_game *game, int keycode)
 {
@@ -35,6 +36,9 @@ void	player_move(t_game *game, int keycode)
 			game->images[2].image, game->player_x * 64, game->player_y * 64);
 	if (game->map[game->player_y][game->player_x] == 'C')
 		game->collect_num--;
+	if (!(game->collect_num))
+		mlx_put_image_to_window(game->mlx_ptr, game->window,
+			game->images[2].image, game->exit_x * 64, game->exit_y * 64);
 	if (game->map[game->player_y][game->player_x] == 'E')
 		if (!(game->collect_num))
 			win_game(game);
@@ -51,26 +55,22 @@ int	can_player_move(t_game *game, int keycode)
 	if (keycode == 13)
 	{
 		if (game->map[game->player_y - 1][game->player_x] != '1')
-			game->player_y--;
-		return (13);
+			return (game->player_y--);
 	}
 	if (keycode == 0)
 	{
 		if (game->map[game->player_y][game->player_x - 1] != '1')
-			game->player_x--;
-		return (0);
+			return (game->player_x--);
 	}
 	if (keycode == 1)
 	{
 		if (game->map[game->player_y + 1][game->player_x] != '1')
-			game->player_y++;
-		return (1);
+			return (game->player_y++);
 	}
 	if (keycode == 2)
 	{
 		if (game->map[game->player_y][game->player_x + 1] != '1')
-			game->player_x++;
-		return (2);
+			return (game->player_x++);
 	}
 	return (-1);
 }

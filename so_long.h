@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:58 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/17 12:55:24 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/17 13:17:11 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct game
 	int		player_x;
 	char	**map;
 	int		collect_num;
+	int		exit_x;
+	int		exit_y;
 	t_image	images[8];
 }t_game;
 
