@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 10:30:59 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/16 19:03:53 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:14:29 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int	unload_assets(t_game *game)
 	mlx_destroy_image(game->mlx_ptr, game->images[1].image);
 	mlx_destroy_image(game->mlx_ptr, game->images[3].image);
 	mlx_destroy_image(game->mlx_ptr, game->images[4].image);
+	mlx_destroy_image(game->mlx_ptr, game->images[5].image);
+	mlx_destroy_image(game->mlx_ptr, game->images[6].image);
+	mlx_destroy_image(game->mlx_ptr, game->images[7].image);
 	free_map(game, game->window_height);
 	mlx_destroy_window(game->mlx_ptr, game->window);
 	printf("exited Successfully\n");

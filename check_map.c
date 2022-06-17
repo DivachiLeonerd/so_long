@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/16 18:53:02 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:15:50 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ int	lookfor_characters(char *line)
 	static int	exit;
 	static int	player;
 	static int	collectable;
-	int			sum;
 
-	sum = 0;
 	while (*line)
 	{
 		if (*line == 'E')
