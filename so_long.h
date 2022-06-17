@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:58 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/17 13:17:11 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/17 17:45:21 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "get_next_line.h"
+# include <string.h>
+# include <errno.h>
 
 typedef unsigned long long	t_ull;
 
@@ -51,7 +53,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strchr(char *str, int chr);
 int		lookfor_characters(char *line);
 int		check_dimensions(t_game *game);
-int		make_map(t_game *game, char *bermap);
+int		make_map(t_game *game, char *bermap, int fd);
 void	free_map(t_game *game, int i);
 int		unload_assets(t_game *game);
 int		event_handler(int keycode, t_game *game);
@@ -59,4 +61,6 @@ int		close_x_window(t_game *game);
 void	make_window(t_game *game);
 void	player_move(t_game *game, int keycode);
 int		can_player_move(t_game *game, int keycode);
+int		ft_error(char *error);
+
 #endif

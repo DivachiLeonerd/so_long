@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_game_images.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:11:53 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/16 18:59:46 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:26:21 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ static void	load_images(t_image *images, t_game *game)
 static void	put_images(t_image *images, t_game *game, int line, int column)
 {
 	if (game->map[line][column] == '1')
-	{
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			images[1].image, (column * images[1].x), (line * images[1].y));
-	}
 	else
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			images[0].image, (column * images[0].x), (line * images[0].y));

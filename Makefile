@@ -6,23 +6,25 @@
 #    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/10 17:21:03 by atereso-          #+#    #+#              #
-#    Updated: 2022/06/16 22:14:50 by afonso           ###   ########.fr        #
+#    Updated: 2022/06/17 18:34:08 by afonso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 HEADER = -I./
-SRCS = so_long.c check_map.c load_game_images.c get_next_line.c get_next_line_utils.c player_move.c event_handler.c make_window.c
+SRCS = so_long.c check_map.c load_game_images.c get_next_line.c get_next_line_utils.c player_move.c event_handler.c make_window.c error_handling.c
 OBJS = ${SRCS:.c=.o}
 OBJS_T = so_long_tester.o
 CC = gcc
 CFLAGS :=-Wall -Wextra -Werror -DBUFFER_SIZE=42 -fsanitize=address
 RM = rm -f
 
+all:linux
+
 $(NAME): fetch ${OBJS}
 	$(CC) $(OBJS) -L./ -lftprintf -I./ -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-linux: fetchl $(OBJS)
+linux: fetchl $(OBJS) libprintf.a
 	$(CC) $(OBJS) -L./ -lftprintf -I./  -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o linux
 
 %.o: %.c

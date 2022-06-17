@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/17 15:15:50 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/17 18:13:16 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,17 @@ int	find_map_height(char *bermap)
 
 	height = 0;
 	fd = open(bermap, O_RDONLY);
-	if (fd < 1)
-		return (0);
+	if (fd == -1)
+		return (-1);
 	saved = get_next_line(fd);
-	while ((saved && (saved[ft_strlen(saved) - 1]) == '\n'))
+	while (saved)
 	{
-		if (ft_strlen(saved) > 0)
-		{
-			free(saved);
-			saved = get_next_line(fd);
-		}
+		free(saved);
+		saved = get_next_line(fd);
 		height++;
 		ft_printf("Acabou find_map_height com return de %d\n", height);
 	}
+	close(fd);
 	return (height);
 }
 
@@ -69,11 +67,9 @@ int	check_upper_lower_bounds(t_game game)
 		i = 0;
 		while (game.map[j][i] == '1')
 			i++;
-		if ((char *)&i != &game.map[0][(ft_strlen(game.map[0]) - 2)])
-		{
-			ft_printf("formato invalido @check_upper_lower_bounds()\n");
-			return (0);
-		}
+		if ((j == 0 || j == game.window_height - 1)
+			&& i != game.window_width - 1)
+			return (-1);
 		j++;
 	}
 	return (1);
@@ -87,78 +83,73 @@ int	check_dimensions(t_game *game)
 
 	height = -1;
 	character_num = 0;
+	if (height * 64 > 1080 || game->window_width * 64 > 1920)
+		return (ft_error("Invalid map too big"));
+	strlen = ft_strlen(game->map[0]);
+	if (check_upper_lower_bounds(*game) < 0)
+		return (ft_error("Not surrounded by walls"));
 	while (++height < game->window_height)
 	{
 		character_num = lookfor_characters(game->map[height]);
-		strlen = ft_strlen(game->map[height]);
 		if (ft_strlen(game->map[height]) != strlen)
-			return (ft_printf("erro. mapa inválido @check_dimensions()\n"));
-		if (height * 64 <= 1080)
-		{
-			if (game->window_width * 64 > 1920)
-				return (0);
-		}
-		else
-			return (0);
+			return (ft_error("Invalid map dimensions"));
 	}
-	if (!character_num)
-		return (0);
-	make_window(game);
+	if (character_num <= 0)
+		return (ft_error("Invalid Components"));
 	game->collect_num = character_num;
 	return (1);
 }
 
-int	make_map(t_game *game, char *bermap)
+int	make_map(t_game *game, char *bermap, int fd)
 {
-	int		fd2;
 	char	*saved;
 	int		i;
 
 	i = 0;
 	game->window_height = find_map_height(bermap);
-	fd2 = open(bermap, O_RDONLY);
-	if (fd2 < 1)
-		return (0);
-	saved = get_next_line(fd2);
+	if (game->window_height == -1)
+		return (-1);
+	game->map = malloc(game->window_height * sizeof(char *) + 1);
+	if (!game->map)
+		return (-1);
+	saved = get_next_line(fd);
 	if (!saved)
 		return (0);
 	game->window_width = ft_strlen(saved);
-	game->map = malloc(game->window_height * sizeof(char *) + 1);
-	if (!game->map)
-		return (0);
 	game->map[game->window_height] = 0;
 	game->map[0] = saved;
 	i = 0;
 	while (++i < game->window_height)
 	{
-		game->map[i] = get_next_line(fd2);
+		game->map[i] = get_next_line(fd);
 		if (game->map[i] == 0)
-			return (i);
+			break ;
 	}
-	close (fd2);
 	return (i);
 }
 
 int	check_map(char *bermap, t_game *game)
 {
 	t_ull				is_ber;
-	int					fd;
 	int					i;
-
-	ft_printf("Inicio de check_map\n");
-	if (!bermap)
-		return (0);
-	is_ber = (t_ull)ft_strnstr(bermap, ".ber", ft_strlen(bermap));
+	int					fd;
+ // not wrting error
+	is_ber = (t_ull)ft_strnstr(bermap, ".ber", ft_strlen(bermap) + 1);
 	if (is_ber == 0)
-		return (0);
+		return (ft_error("Invalid file name"));
 	fd = open(bermap, O_RDONLY);
-	if (fd < 0)
-		return (0);
-	i = make_map(game, bermap);
-	if (i != game->window_height)
-		free_map(game, i);
-	if (!check_dimensions(game))
-		return (0);
-	return (1);
+	if (fd == -1)
+		return (ft_error(strerror(errno)));
+	i = make_map(game, bermap, fd);
 	close (fd);
+	if (i < 0)
+		return (ft_error(strerror(errno)));
+	if (i != game->window_height)
+	{
+		free_map(game, i);
+		return (ft_error(strerror(errno)));
+	}
+	if (check_dimensions(game) == -1)
+		return (-1);
+	return (0);
 }

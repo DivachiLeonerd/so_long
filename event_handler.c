@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 10:30:59 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/17 15:14:29 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/17 18:20:42 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	close_x_window(t_game *game)
 
 int	valid_key(int keycode)
 {
-	if (keycode == 13 || keycode == 0 || keycode == 1 || keycode == 2)
+	ft_printf("keycode:%d\n", keycode);
+	if (keycode == 119 || keycode == 97 || keycode == 115 || keycode == 100)
 		return (1);
 	return (0);
 }
@@ -50,17 +51,17 @@ int	event_handler(int keycode, t_game *game)
 	{
 		if (can_player_move(game, keycode) > -1)
 		{
+			player_move(game, keycode);
 			if (game->collect_num == 0)
 				mlx_put_image_to_window(game->mlx_ptr,
-					game->window, game->images[4].image, game->images[4].x * 64,
-					game->images[4].y * 64);
-			else if (game->map[game->player_y][game->player_x] != 'E')
-			{
-				mlx_put_image_to_window(game->mlx_ptr, game->window,
-					game->images[0].image, game->player_x * 64,
-					game->player_y * 64);
-			}
-			player_move(game, keycode);
+					game->window, game->images[4].image, 6 *64,//exit coordinates hard coded
+					1 * 64);
+			// else if (game->map[game->player_y][game->player_x] != 'E')
+			// {
+			// 	mlx_put_image_to_window(game->mlx_ptr, game->window,
+			// 		game->images[0].image, game->player_x * 64,
+			// 		game->player_y * 64);
+			// }
 			ft_printf("%d\n", ++counter);
 		}
 	}
