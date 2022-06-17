@@ -6,14 +6,13 @@
 /*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:16:41 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/16 17:42:59 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/17 12:55:38 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 int	can_player_move(t_game *game, int keycode);
-int	win_game(t_game *game);
 
 void	player_move(t_game *game, int keycode)
 {
@@ -78,25 +77,6 @@ int	can_player_move(t_game *game, int keycode)
 
 int	win_game(t_game *game)
 {
-
 	ft_printf("Acertou miseravel\n");
-	return (win_animation(game));
-}
-
-int	win_animation(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < 3)
-	{
-		ft_printf("primeira imagem\n");
-		mlx_put_image_to_window(game->mlx_ptr, game->window, game->images[2].image, game->player_x * 64, game->player_y * 64);
-		sleep(1);
-		ft_printf("segunda imagem\n");
-		mlx_put_image_to_window(game->mlx_ptr, game->window, game->images[5].image, game->player_x * 64, game->player_y * 64);
-		sleep(1);
-		i++;
-	}
 	return (close_x_window(game));
 }

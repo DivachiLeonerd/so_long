@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:58 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/16 18:59:11 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/17 12:55:24 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,4 @@ int		close_x_window(t_game *game);
 void	make_window(t_game *game);
 void	player_move(t_game *game, int keycode);
 int		can_player_move(t_game *game, int keycode);
-int		win_animation(t_game *game);
 #endif
