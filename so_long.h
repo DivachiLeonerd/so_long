@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:58 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/18 21:01:57 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/18 21:14:21 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ int		can_player_move(t_game *game, int keycode);
 int		ft_error(char *error);
 int		check_bounds(t_game game);
 void	find_exit(t_game *game);
+char	*ft_itoa(int convert);
 
 #endif
