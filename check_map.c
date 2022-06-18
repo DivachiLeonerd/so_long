@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/17 18:13:16 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/18 19:04:20 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,25 @@ int	find_map_height(char *bermap)
 		free(saved);
 		saved = get_next_line(fd);
 		height++;
-		ft_printf("Acabou find_map_height com return de %d\n", height);
 	}
 	close(fd);
 	return (height);
 }
 
-int	check_upper_lower_bounds(t_game game)
+int	check_bounds(t_game game)
 {
 	int	i;
 	int	j;
 
 	j = 0;
-	i = 0;
 	while (game.map[j])
 	{
 		i = 0;
+		if (game.map[j][0] != '1' || game.map[j][game.window_width - 2] != '1')
+			return (-1);
 		while (game.map[j][i] == '1')
 			i++;
+		ft_printf("window_w:%d\n", game.window_width);
 		if ((j == 0 || j == game.window_height - 1)
 			&& i != game.window_width - 1)
 			return (-1);
@@ -86,8 +87,8 @@ int	check_dimensions(t_game *game)
 	if (height * 64 > 1080 || game->window_width * 64 > 1920)
 		return (ft_error("Invalid map too big"));
 	strlen = ft_strlen(game->map[0]);
-	if (check_upper_lower_bounds(*game) < 0)
-		return (ft_error("Not surrounded by walls"));
+	if (check_bounds(*game) < 0)
+		return (ft_error("Wall layout is not valid"));
 	while (++height < game->window_height)
 	{
 		character_num = lookfor_characters(game->map[height]);
@@ -133,7 +134,7 @@ int	check_map(char *bermap, t_game *game)
 	t_ull				is_ber;
 	int					i;
 	int					fd;
- // not wrting error
+ // not writing error
 	is_ber = (t_ull)ft_strnstr(bermap, ".ber", ft_strlen(bermap) + 1);
 	if (is_ber == 0)
 		return (ft_error("Invalid file name"));

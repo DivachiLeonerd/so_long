@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:58 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/17 17:45:21 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/18 21:01:57 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,7 @@ void	make_window(t_game *game);
 void	player_move(t_game *game, int keycode);
 int		can_player_move(t_game *game, int keycode);
 int		ft_error(char *error);
+int		check_bounds(t_game game);
+void	find_exit(t_game *game);
 
 #endif

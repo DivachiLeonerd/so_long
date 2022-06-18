@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
+#    By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/10 17:21:03 by atereso-          #+#    #+#              #
-#    Updated: 2022/06/17 18:59:49 by afonso           ###   ########.fr        #
+#    Updated: 2022/06/18 17:28:56 by atereso-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,9 @@ CC = gcc
 CFLAGS :=-Wall -Wextra -Werror -DBUFFER_SIZE=42 -fsanitize=address
 RM = rm -f
 
-all:linux
+all:$(NAME)
 
-$(NAME): fetch ${OBJS}
+$(NAME): ${OBJS} libftprintf.a
 	$(CC) $(OBJS) -L./ -lftprintf -I./ -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 linux: $(OBJS) libftprintf.a
@@ -41,7 +41,7 @@ fetch:
 
 libftprintf.a:
 	${MAKE} -C ../printf42
-	mv ../printf42/libftprintf.a /home/afonso/Documents/GitHub/so_long_home
+	mv ../printf42/libftprintf.a /Users/atereso-/Documents/so_long_home
 	${MAKE} -C ../printf42 clean
 	${MAKE} -C ../printf42/libft clean
 
