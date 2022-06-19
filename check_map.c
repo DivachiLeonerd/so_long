@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/18 19:04:20 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:41:28 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	check_dimensions(t_game *game)
 
 	height = -1;
 	character_num = 0;
-	if (height * 64 > 1080 || game->window_width * 64 > 1920)
+	if (game->window_height * 64 > 1080 || game->window_width * 64 > 1920)
 		return (ft_error("Invalid map too big"));
 	strlen = ft_strlen(game->map[0]);
 	if (check_bounds(*game) < 0)

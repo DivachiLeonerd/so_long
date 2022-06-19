@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:16:41 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/18 19:02:04 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/19 18:57:50 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	player_move(t_game *game, int keycode)
 			win_game(game);
 	if (game->map[game->player_y][game->player_x] != 'E')
 		game->map[game->player_y][game->player_x] = '0';
-	x = -(keycode == 2) + (keycode == 0);
-	y = (keycode == 13) - (keycode == 1);
+	x = -(keycode == D) + (keycode == A);
+	y = (keycode == W) - (keycode == S);
 	mlx_put_image_to_window(game->mlx_ptr, game->window,
 		game->images[0].image, (game->player_x + x) * 64,
 		(game->player_y + y) * 64);
@@ -41,16 +41,16 @@ void	player_move(t_game *game, int keycode)
 
 int	can_player_move(t_game *game, int keycode)
 {
-	if (keycode == 13)
+	if (keycode == W)
 		if (game->map[game->player_y - 1][game->player_x] != '1')
 			return (game->player_y--);
-	if (keycode == 0)
+	if (keycode == A)
 		if (game->map[game->player_y][game->player_x - 1] != '1')
 			return (game->player_x--);
-	if (keycode == 1)
+	if (keycode == S)
 		if (game->map[game->player_y + 1][game->player_x] != '1')
 			return (game->player_y++);
-	if (keycode == 2)
+	if (keycode == D)
 		if (game->map[game->player_y][game->player_x + 1] != '1')
 			return (game->player_x++);
 	return (-1);
@@ -67,16 +67,16 @@ void	print_player(t_game *game, int keycode)
 	if (game->map[game->player_y][game->player_x] == 'C')
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			game->images[0].image, game->player_x * 64, game->player_y * 64);
-	if (keycode == 13)
+	if (keycode == W)
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			game->images[7].image, game->player_x * 64, game->player_y * 64);
-	if (keycode == 0)
+	if (keycode == A)
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			game->images[6].image, game->player_x * 64, game->player_y * 64);
-	if (keycode == 1)
+	if (keycode == S)
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			game->images[2].image, game->player_x * 64, game->player_y * 64);
-	if (keycode == 2)
+	if (keycode == D)
 		mlx_put_image_to_window(game->mlx_ptr, game->window,
 			game->images[2].image, game->player_x * 64, game->player_y * 64);
 	return ;

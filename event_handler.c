@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 10:30:59 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/18 21:15:22 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:07:46 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	close_x_window(t_game *game)
 
 int	valid_key(int keycode)
 {
-	if (keycode == 13 || keycode == 0 || keycode == 1 || keycode == 2)
+	if (keycode == W || keycode == A || keycode == S || keycode == D)
 		return (1);
 	return (0);
 }
@@ -46,8 +46,8 @@ int	event_handler(int keycode, t_game *game)
 {
 	static int	counter;
 
-	mlx_string_put(game->mlx_ptr, game->window, 0, 0,
-		4451500, ft_itoa(counter));//I need to clear older string_puts
+	mlx_put_image_to_window(game->mlx_ptr,
+		game->window, game->images[1].image, 0, 0);
 	if (valid_key(keycode))
 	{
 		if (can_player_move(game, keycode) > -1)
@@ -58,9 +58,14 @@ int	event_handler(int keycode, t_game *game)
 					game->window, game->images[4].image, game->exit_x * 64,
 					game->exit_y * 64);
 			ft_printf("%d\n", ++counter);
+			mlx_string_put(game->mlx_ptr, game->window, 10, 20,
+				4451500, ft_itoa(counter));
 		}
+		else
+			ft_printf("Invalid Move\n");
 	}
-	ft_printf("Invalid Move\n");
+	else
+		ft_printf("Invalid Key\n");
 	if (keycode == 53)
 		close_x_window(game);
 	return (0);

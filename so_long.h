@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:19:58 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/18 21:14:21 by atereso-         ###   ########.fr       */
+/*   Updated: 2022/06/19 18:49:54 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
 # include "get_next_line.h"
 # include <string.h>
 # include <errno.h>
+
+# define W 119
+# define A 97
+# define S 115
+# define D 100
 
 typedef unsigned long long	t_ull;
 
