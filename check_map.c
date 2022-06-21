@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 09:59:44 by afonso            #+#    #+#             */
-/*   Updated: 2022/06/19 19:41:28 by afonso           ###   ########.fr       */
+/*   Updated: 2022/06/20 17:16:30 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,28 +129,3 @@ int	make_map(t_game *game, char *bermap, int fd)
 	return (i);
 }
 
-int	check_map(char *bermap, t_game *game)
-{
-	t_ull				is_ber;
-	int					i;
-	int					fd;
- // not writing error
-	is_ber = (t_ull)ft_strnstr(bermap, ".ber", ft_strlen(bermap) + 1);
-	if (is_ber == 0)
-		return (ft_error("Invalid file name"));
-	fd = open(bermap, O_RDONLY);
-	if (fd == -1)
-		return (ft_error(strerror(errno)));
-	i = make_map(game, bermap, fd);
-	close (fd);
-	if (i < 0)
-		return (ft_error(strerror(errno)));
-	if (i != game->window_height)
-	{
-		free_map(game, i);
-		return (ft_error(strerror(errno)));
-	}
-	if (check_dimensions(game) == -1)
-		return (-1);
-	return (0);
-}
